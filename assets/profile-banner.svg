@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="250" viewBox="0 0 1200 250" role="img" aria-labelledby="title desc">
+<title id="title">NANATATA</title><desc id="desc">AI applications, interaction and engineering. From ideas to working projects.</desc>
+<rect width="1200" height="250" rx="8" fill="#f3f3eb"/>
+<path d="M36 32H1164M36 218H1164" stroke="#d7ddcc"/>
+<text x="48" y="70" font-family="Segoe UI,Arial,sans-serif" font-size="13" letter-spacing="3" fill="#64764f">BUILD · EXPERIMENT · CONNECT</text>
+<text x="45" y="140" font-family="Segoe UI,Arial,sans-serif" font-size="57" font-weight="700" letter-spacing="-1" fill="#29382b">NANATATA<tspan fill="#738b50">.</tspan></text>
+<text x="48" y="181" font-family="Segoe UI,Arial,sans-serif" font-size="19" fill="#63705b">From ideas to working projects.</text>
+<g fill="none" stroke="#a3b58a" stroke-width="2"><path d="M750 123H820M970 123H1045"/><path d="m808 117 12 6-12 6m225-12 12 6-12 6"/></g>
+<rect x="668" y="90" width="91" height="66" rx="5" fill="#e3e9d8" stroke="#bdcba8"/>
+<text x="714" y="130" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="17" fill="#4d623b">INPUT</text>
+<rect x="830" y="77" width="137" height="92" rx="5" fill="#283e2d"/>
+<text x="898" y="116" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="23" fill="#d8e7b7">AI</text>
+<text x="898" y="144" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" letter-spacing="1" fill="#cedabb">+ ENGINEERING</text>
+<rect x="1053" y="90" width="99" height="66" rx="5" fill="#e3e9d8" stroke="#bdcba8"/>
+<text x="1102" y="130" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="16" fill="#4d623b">OUTPUT</text>
+</svg>
