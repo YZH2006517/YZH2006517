@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-labelledby="t d">
+<title id="t">AI Virtual Streamer</title>
+<desc id="d">Windows desktop app. A Live2D avatar reads live chat, replies with voice, dances to the beat and hosts danmaku mini-games. Pipeline: live chat, large language model, voice and motion, OBS stage.</desc>
+<style>
+  /* 一条弹幕走完四个阶段，节点依次点亮。8 秒一轮 */
+  .glow { opacity: 0; animation: glow 8s linear infinite }
+  .g2 { animation-delay: 1.6s } .g3 { animation-delay: 3.2s } .g4 { animation-delay: 4.8s }
+  @keyframes glow { 0%{opacity:0} 4%{opacity:1} 14%{opacity:1} 20%,100%{opacity:0} }
+
+  .hop { opacity: 0; animation: hop 8s linear infinite }
+  .h1 { animation-delay: 1.12s } .h2 { animation-delay: 2.72s } .h3 { animation-delay: 4.32s }
+  @keyframes hop { 0%{opacity:0;transform:translateX(0)} 1%{opacity:1}
+                   5%{opacity:1;transform:translateX(26px)} 6%,100%{opacity:0;transform:translateX(26px)} }
+
+  /* 新留言不断涌进第一格 */
+  .feed { animation: feed 2.6s ease-out infinite }
+  .f2 { animation-delay: .85s } .f3 { animation-delay: 1.7s }
+  @keyframes feed { 0%{opacity:0;transform:translateX(16px)} 25%,70%{opacity:.5;transform:translateX(0)}
+                    100%{opacity:0;transform:translateX(-10px)} }
+
+  /* 语音引擎的波形 */
+  .bar { transform-box: fill-box; transform-origin: bottom; animation: bar .76s ease-in-out infinite alternate }
+  .b2 { animation-delay: -.19s } .b3 { animation-delay: -.38s } .b4 { animation-delay: -.57s }
+  @keyframes bar { from { transform: scaleY(.3) } to { transform: scaleY(1) } }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important } .glow { opacity: .35 } }
+</style>
+
+<rect width="1200" height="400" rx="10" fill="#161a12"/>
+<rect x="60" y="0" width="56" height="4" fill="#a6bd80"/>
+
+<text x="60" y="62" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="11" letter-spacing="2.4" fill="#98a28c">PROJECT 01 &#183; WINDOWS DESKTOP APP</text>
+<text x="58" y="122" font-family="Georgia,Times New Roman,serif" font-size="44" fill="#e9ede1" letter-spacing="-.5">AI VIRTUAL STREAMER</text>
+<text x="60" y="156" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="16" fill="#98a28c">A Live2D avatar reads live chat, replies with voice, dances to the beat and hosts danmaku mini-games.</text>
+<path d="M60 184H1140" stroke="#2f362a"/>
+
+<g font-family="Segoe UI,Helvetica,Arial,sans-serif">
+  <rect x="60" y="206" width="236" height="110" rx="5" fill="#1e2419" stroke="#2f362a"/>
+  <rect class="glow" x="60" y="206" width="236" height="110" rx="5" fill="none" stroke="#a6bd80" stroke-width="2"/>
+  <text x="80" y="234" font-size="9.5" letter-spacing="1.4" fill="#76806a">INPUT</text>
+  <text x="80" y="264" font-size="17" fill="#e9ede1">LIVE CHAT</text>
+  <text x="80" y="287" font-size="11.5" fill="#98a28c">Douyin room comments, queued</text>
+  <g fill="#a6bd80">
+    <rect class="feed"    x="236" y="243" width="42" height="3.5" rx="1.75" opacity="0"/>
+    <rect class="feed f2" x="226" y="253" width="52" height="3.5" rx="1.75" opacity="0"/>
+    <rect class="feed f3" x="244" y="263" width="34" height="3.5" rx="1.75" opacity="0"/>
+  </g>
+
+  <rect x="338" y="206" width="236" height="110" rx="5" fill="#24301f"/>
+  <rect class="glow g2" x="338" y="206" width="236" height="110" rx="5" fill="none" stroke="#a6bd80" stroke-width="2"/>
+  <text x="358" y="234" font-size="9.5" letter-spacing="1.4" fill="#9db184">MODEL</text>
+  <text x="358" y="264" font-size="17" fill="#dbe6c3">LLM</text>
+  <text x="358" y="287" font-size="11.5" fill="#b4c69b">DeepSeek / OpenAI-compatible</text>
+
+  <rect x="616" y="206" width="236" height="110" rx="5" fill="#1e2419" stroke="#2f362a"/>
+  <rect class="glow g3" x="616" y="206" width="236" height="110" rx="5" fill="none" stroke="#a6bd80" stroke-width="2"/>
+  <text x="636" y="234" font-size="9.5" letter-spacing="1.4" fill="#76806a">RENDER</text>
+  <text x="636" y="264" font-size="17" fill="#e9ede1">VOICE + MOTION</text>
+  <text x="636" y="287" font-size="11.5" fill="#98a28c">Edge TTS, lip-sync, dance</text>
+  <g fill="#a6bd80" opacity=".75">
+    <rect class="bar"    x="800" y="278" width="4" height="14" rx="2"/>
+    <rect class="bar b2" x="809" y="278" width="4" height="14" rx="2"/>
+    <rect class="bar b3" x="818" y="278" width="4" height="14" rx="2"/>
+    <rect class="bar b4" x="827" y="278" width="4" height="14" rx="2"/>
+  </g>
+
+  <rect x="894" y="206" width="236" height="110" rx="5" fill="#1e2419" stroke="#2f362a"/>
+  <rect class="glow g4" x="894" y="206" width="236" height="110" rx="5" fill="none" stroke="#a6bd80" stroke-width="2"/>
+  <text x="914" y="234" font-size="9.5" letter-spacing="1.4" fill="#76806a">OUTPUT</text>
+  <text x="914" y="264" font-size="17" fill="#e9ede1">OBS STAGE</text>
+  <text x="914" y="287" font-size="11.5" fill="#98a28c">WebView2 canvas, capturable</text>
+
+  <g stroke="#a6bd80" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".55">
+    <path d="M302 261h26M580 261h26M858 261h26"/>
+    <path d="m323 256 6 5-6 5M601 256l6 5-6 5M879 256l6 5-6 5"/>
+  </g>
+  <g fill="#a6bd80">
+    <circle class="hop h1" cx="304" cy="261" r="4"/>
+    <circle class="hop h2" cx="582" cy="261" r="4"/>
+    <circle class="hop h3" cx="860" cy="261" r="4"/>
+  </g>
+</g>
+
+<g font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="11.5">
+  <rect x="60" y="350" width="62" height="26" rx="13" fill="#1e2419" stroke="#2f362a"/><text x="91" y="367" text-anchor="middle" fill="#98a28c">Python</text>
+  <rect x="132" y="350" width="125" height="26" rx="13" fill="#1e2419" stroke="#2f362a"/><text x="194" y="367" text-anchor="middle" fill="#98a28c">Live2D Cubism 3+</text>
+  <rect x="267" y="350" width="74" height="26" rx="13" fill="#1e2419" stroke="#2f362a"/><text x="304" y="367" text-anchor="middle" fill="#98a28c">Edge TTS</text>
+  <rect x="351" y="350" width="74" height="26" rx="13" fill="#1e2419" stroke="#2f362a"/><text x="388" y="367" text-anchor="middle" fill="#98a28c">WebView2</text>
+  <rect x="435" y="350" width="43" height="26" rx="13" fill="#1e2419" stroke="#2f362a"/><text x="456" y="367" text-anchor="middle" fill="#98a28c">MIT</text>
+</g>
+</svg>

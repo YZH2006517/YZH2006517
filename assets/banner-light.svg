@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="260" viewBox="0 0 1200 260" role="img" aria-labelledby="t d">
+<title id="t">NANATATA</title>
+<desc id="d">AI applications, interaction and engineering. Two Windows desktop products: a Live2D streaming companion and a film lighttable.</desc>
+<style>
+  /* README 里不能跑 JS，动效只能写在 SVG 内部 */
+  .scan   { animation: scan 9s linear infinite }
+  .dm     { animation: dm 4.2s ease-out infinite }
+  .dm2    { animation-delay: 1.4s }
+  .dm3    { animation-delay: 2.8s }
+  .bob    { animation: bob 3.4s ease-in-out infinite }
+  .live   { animation: live 1.8s ease-in-out infinite }
+  .loupe  { animation: sweep 7s ease-in-out infinite }
+  .dot    { animation: dotpulse 3.6s ease-in-out infinite }
+
+  @keyframes scan     { 0% { transform: translateX(0) }   100% { transform: translateX(1088px) } }
+  @keyframes dm       { 0%,8% { opacity: 0; transform: translateX(22px) }
+                        26%,62% { opacity: .55; transform: translateX(0) }
+                        92%,100% { opacity: 0; transform: translateX(-14px) } }
+  @keyframes bob      { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-2.5px) } }
+  @keyframes live     { 0%,100% { opacity: .25 } 50% { opacity: 1 } }
+  @keyframes sweep    { 0%,100% { transform: translateX(0) } 50% { transform: translateX(-86px) } }
+  @keyframes dotpulse { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important } }
+</style>
+
+<rect width="1200" height="260" rx="10" fill="#f7f6f2"/>
+<path d="M56 36H1144M56 224H1144" stroke="#dcded4" stroke-width="1"/>
+<!-- 顶边缓慢扫过的一段强调线 -->
+<g clip-path="inset(0 56px 0 56px)"><rect class="scan" x="-96" y="35" width="96" height="2" fill="#66784e" opacity=".5"/></g>
+
+<text x="56" y="80" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="12" letter-spacing="2.8" fill="#626b5c">AI APPLICATIONS &#183; INTERACTION &#183; ENGINEERING</text>
+<text x="54" y="154" font-family="Georgia,Times New Roman,serif" font-size="60" fill="#292d27" letter-spacing="-1">NANATATA<tspan class="dot" fill="#66784e">.</tspan></text>
+<text x="56" y="194" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="16" fill="#626b5c">From ideas to working projects.</text>
+
+<!-- 产品一：Live2D 主播。弹幕飘进来，形象轻轻起伏 -->
+<g>
+  <rect x="700" y="64" width="210" height="132" rx="6" fill="#edf0e7" stroke="#dcded4"/>
+  <rect x="700" y="64" width="46" height="2.5" fill="#66784e"/>
+  <rect x="749" y="84" width="112" height="56" rx="3" fill="#f7f6f2" stroke="#c9ccbf"/>
+  <circle class="live" cx="854" cy="91" r="3" fill="#66784e"/>
+  <g class="bob">
+    <circle cx="790" cy="102" r="8.5" fill="#66784e" opacity=".75"/>
+    <rect x="778" y="116" width="24" height="24" rx="10" fill="#66784e" opacity=".75"/>
+  </g>
+  <g fill="#66784e">
+    <rect class="dm"  x="812" y="96"  width="30" height="3" rx="1.5" opacity="0"/>
+    <rect class="dm dm2" x="806" y="105" width="36" height="3" rx="1.5" opacity="0"/>
+    <rect class="dm dm3" x="816" y="114" width="26" height="3" rx="1.5" opacity="0"/>
+  </g>
+  <text x="805" y="170" text-anchor="middle" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="11" letter-spacing="1.3" fill="#292d27">LIVE2D STREAMER</text>
+  <text x="805" y="185" text-anchor="middle" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="10" fill="#8b9382">Windows desktop</text>
+</g>
+
+<!-- 产品二：观片台。放大镜在胶卷上来回扫 -->
+<g>
+  <rect x="934" y="64" width="210" height="132" rx="6" fill="#edf0e7" stroke="#dcded4"/>
+  <rect x="934" y="64" width="46" height="2.5" fill="#66784e"/>
+  <rect x="962" y="92" width="120" height="44" rx="2" fill="#2e332b"/>
+  <g fill="#f7f6f2" opacity=".8">
+    <rect x="968" y="96" width="7" height="5" rx="1"/><rect x="982" y="96" width="7" height="5" rx="1"/>
+    <rect x="996" y="96" width="7" height="5" rx="1"/><rect x="1010" y="96" width="7" height="5" rx="1"/>
+    <rect x="1024" y="96" width="7" height="5" rx="1"/><rect x="1038" y="96" width="7" height="5" rx="1"/>
+    <rect x="1052" y="96" width="7" height="5" rx="1"/><rect x="1066" y="96" width="7" height="5" rx="1"/>
+    <rect x="968" y="127" width="7" height="5" rx="1"/><rect x="982" y="127" width="7" height="5" rx="1"/>
+    <rect x="996" y="127" width="7" height="5" rx="1"/><rect x="1010" y="127" width="7" height="5" rx="1"/>
+    <rect x="1024" y="127" width="7" height="5" rx="1"/><rect x="1038" y="127" width="7" height="5" rx="1"/>
+    <rect x="1052" y="127" width="7" height="5" rx="1"/><rect x="1066" y="127" width="7" height="5" rx="1"/>
+  </g>
+  <rect x="968" y="106" width="34" height="16" fill="#c9d3bb"/>
+  <rect x="1006" y="106" width="34" height="16" fill="#d8cfb8"/>
+  <rect x="1044" y="106" width="34" height="16" fill="#b9c6c9"/>
+  <g class="loupe">
+    <circle cx="1072" cy="118" r="21" fill="#f7f6f2" opacity=".95" stroke="#66784e" stroke-width="2"/>
+    <path d="M1060 112h24M1060 119h18M1060 126h22" stroke="#8b9382" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>
+  </g>
+  <text x="1039" y="170" text-anchor="middle" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="11" letter-spacing="1.3" fill="#292d27">FILM LIGHTTABLE</text>
+  <text x="1039" y="185" text-anchor="middle" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="10" fill="#8b9382">Windows desktop</text>
+</g>
+</svg>

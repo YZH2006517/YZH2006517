@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-labelledby="t d">
+<title id="t">Photo All Studio</title>
+<desc id="d">Windows desktop app. A backlit electronic lighttable for film review with a refracting loupe, and a local workbench from selection to RAW development and 16-bit export.</desc>
+<defs>
+  <radialGradient id="glow" cx="50%" cy="50%" r="62%">
+    <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#eef0e8"/>
+  </radialGradient>
+  <pattern id="sprocket" width="28" height="74" patternUnits="userSpaceOnUse">
+    <rect x="9" y="7" width="10" height="9" rx="2" fill="#f7f6f2" opacity=".82"/>
+    <rect x="9" y="58" width="10" height="9" rx="2" fill="#f7f6f2" opacity=".82"/>
+  </pattern>
+  <clipPath id="panel"><rect x="61" y="201" width="658" height="132" rx="4"/></clipPath>
+  <clipPath id="loupe"><circle cx="598" cy="265" r="46"/></clipPath>
+  <g id="frames">
+    <rect x="36"  y="246" width="128" height="38" fill="#c3d0b3"/>
+    <rect x="178" y="246" width="128" height="38" fill="#d9cdb4"/>
+    <rect x="320" y="246" width="128" height="38" fill="#b7c6ca"/>
+    <rect x="462" y="246" width="128" height="38" fill="#d3c0b9"/>
+    <rect x="604" y="246" width="128" height="38" fill="#cbc6a9"/>
+    <rect x="746" y="246" width="128" height="38" fill="#bcc8bd"/>
+  </g>
+</defs>
+<style>
+  /* 放大镜不动，胶卷在底下滑过 —— 这就是软件里「连续胶卷」的真实行为。
+     镜内内容按 1.9 倍速同步平移，所以看着是真的在放大同一处 */
+  .strip    { animation: slide 16s ease-in-out infinite }
+  .stripmag { animation: slide 16s ease-in-out infinite }
+  @keyframes slide { 0%,100% { transform: translateX(0) } 50% { transform: translateX(-142px) } }
+
+  .backlight { animation: lamp 6s ease-in-out infinite }
+  @keyframes lamp { 0%,100% { opacity: 1 } 50% { opacity: .82 } }
+
+  .keycap { animation: keycap 9s ease-in-out infinite }
+  .k2 { animation-delay: 1.5s } .k3 { animation-delay: 3s } .k4 { animation-delay: 4.5s }
+  .k5 { animation-delay: 6s } .k6 { animation-delay: 7.5s }
+  @keyframes keycap { 0%,10%,100% { fill: #8b9382 } 3%,7% { fill: #66784e } }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important } }
+</style>
+
+<rect width="1200" height="400" rx="10" fill="#f7f6f2"/>
+<rect x="60" y="0" width="56" height="4" fill="#66784e"/>
+
+<text x="60" y="62" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="11" letter-spacing="2.4" fill="#626b5c">PROJECT 02 &#183; WINDOWS DESKTOP APP</text>
+<text x="58" y="122" font-family="Georgia,Times New Roman,serif" font-size="44" fill="#292d27" letter-spacing="-.5">PHOTO ALL STUDIO</text>
+<text x="60" y="156" font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="16" fill="#626b5c">An electronic lighttable you can switch on, lay frames out on, and magnify &#8212; then edit and export.</text>
+<path d="M60 184H1140" stroke="#dcded4"/>
+
+<g>
+  <rect class="backlight" x="60" y="200" width="660" height="134" rx="4" fill="url(#glow)" stroke="#dcded4"/>
+  <g clip-path="url(#panel)">
+    <g class="strip">
+      <rect x="20" y="228" width="880" height="74" rx="2" fill="#2e332b"/>
+      <rect x="20" y="228" width="880" height="74" fill="url(#sprocket)"/>
+      <use href="#frames"/>
+    </g>
+  </g>
+
+  <!-- 镜内：同一段胶卷放大 1.9 倍 -->
+  <g clip-path="url(#loupe)">
+    <rect x="552" y="219" width="92" height="92" fill="#f3f1ea"/>
+    <g transform="translate(598,265) scale(1.9) translate(-598,-265)">
+      <g class="stripmag"><use href="#frames"/></g>
+    </g>
+  </g>
+  <circle cx="598" cy="265" r="46" fill="none" stroke="#66784e" stroke-width="2.5"/>
+  <circle cx="598" cy="265" r="41" fill="none" stroke="#f7f6f2" stroke-width="1.5" opacity=".55"/>
+  <path d="M572 236a46 46 0 0 0-15 22" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+
+  <g font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="10.5" letter-spacing="1.2">
+    <text x="60"  y="356" class="keycap"    fill="#8b9382">G TABLE</text>
+    <text x="146" y="356" class="keycap k2" fill="#8b9382">E SINGLE</text>
+    <text x="240" y="356" class="keycap k3" fill="#8b9382">C FILM</text>
+    <text x="318" y="356" class="keycap k4" fill="#8b9382">V LOUPE</text>
+    <text x="406" y="356" class="keycap k5" fill="#8b9382">L BACKLIGHT</text>
+    <text x="528" y="356" class="keycap k6" fill="#8b9382">I IMMERSIVE</text>
+  </g>
+</g>
+
+<g font-family="Segoe UI,Helvetica,Arial,sans-serif">
+  <rect x="752" y="200" width="186" height="62" rx="5" fill="#edf0e7" stroke="#dcded4"/>
+  <text x="772" y="226" font-size="15" fill="#292d27">Refracting loupe</text>
+  <text x="772" y="246" font-size="11" fill="#626b5c">Zoom and lens size, independent</text>
+
+  <rect x="954" y="200" width="186" height="62" rx="5" fill="#edf0e7" stroke="#dcded4"/>
+  <text x="974" y="226" font-size="15" fill="#292d27">126 open LUTs</text>
+  <text x="974" y="246" font-size="11" fill="#626b5c">Plus 17 looks, 16 Spektrafilm</text>
+
+  <rect x="752" y="276" width="186" height="62" rx="5" fill="#edf0e7" stroke="#dcded4"/>
+  <text x="772" y="302" font-size="15" fill="#292d27">RAW development</text>
+  <text x="772" y="322" font-size="11" fill="#626b5c">RawTherapee, non-destructive</text>
+
+  <rect x="954" y="276" width="186" height="62" rx="5" fill="#edf0e7" stroke="#dcded4"/>
+  <text x="974" y="302" font-size="15" fill="#292d27">16-bit export</text>
+  <text x="974" y="322" font-size="11" fill="#626b5c">PNG / TIFF, lossless WebP</text>
+</g>
+
+<g font-family="Segoe UI,Helvetica,Arial,sans-serif" font-size="11.5">
+  <rect x="752" y="352" width="58" height="26" rx="13" fill="#f7f6f2" stroke="#dcded4"/><text x="781" y="369" text-anchor="middle" fill="#626b5c">Tauri</text>
+  <rect x="820" y="352" width="60" height="26" rx="13" fill="#f7f6f2" stroke="#dcded4"/><text x="850" y="369" text-anchor="middle" fill="#626b5c">React</text>
+  <rect x="890" y="352" width="62" height="26" rx="13" fill="#f7f6f2" stroke="#dcded4"/><text x="921" y="369" text-anchor="middle" fill="#626b5c">Python</text>
+  <rect x="962" y="352" width="86" height="26" rx="13" fill="#f7f6f2" stroke="#dcded4"/><text x="1005" y="369" text-anchor="middle" fill="#626b5c">CLIP ONNX</text>
+  <rect x="1058" y="352" width="82" height="26" rx="13" fill="#f7f6f2" stroke="#dcded4"/><text x="1099" y="369" text-anchor="middle" fill="#626b5c">GPL-3.0</text>
+</g>
+</svg>
