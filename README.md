@@ -58,7 +58,7 @@
 
 从导入到出片，整条路都在一个软件里。三件事是它和普通看图软件的区别：
 
-| | | |
+| 三件事 | 一句话 | 具体 |
 | --- | --- | --- |
 | **整合** | 一条链路 | 导入、离线识图、审阅、调色、RAW 显影、导出都在同一个窗口里，不用来回倒腾别的软件；图集只登记路径，不复制原文件 |
 | **沉浸** | 它是观片台 | 实体灯箱式背光，自由拖片与一键平铺，连续胶卷首尾相接横向滑动；折射放大镜倍率与镜片尺寸独立调节，镜外保留整张台面 |
@@ -125,7 +125,7 @@ Only two steps in the whole chain leave the machine — the LLM and the voice.
 
 The whole trip from import to export lives in one app. Three things set it apart from a picture viewer:
 
-| | | |
+| Three things | In short | In detail |
 | --- | --- | --- |
 | **Integration** | One chain | Import, offline recognition, review, grading, RAW development and export all in the same window — nothing round-trips through another app. The catalog indexes paths; it never copies your files |
 | **Immersion** | It is a light table | Backlight like a real lamp box, free placement and one-click tiling, a continuous strip you slide sideways; the refracting loupe sets magnification and lens size separately and keeps the rest of the table in view |
