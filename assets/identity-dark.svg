@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="300" viewBox="0 0 1080 300" role="img" aria-labelledby="title desc">
+<title id="title">NANATATA — Build with curiosity.</title><desc id="desc">影像、交互与软件。独立创作与工程实践。</desc>
+<defs><clipPath id="crop"><rect x="812" y="62" width="200" height="176" rx="88"/></clipPath></defs>
+<rect width="1080" height="300" rx="4" fill="#17191c"/>
+<g font-family="Arial,Helvetica,sans-serif"><text x="42" y="42" font-size="12" letter-spacing="2.5" fill="#a8aaa9">PERSONAL NOTES &amp; SELECTED WORK</text>
+<text x="39" y="156" font-size="94" font-weight="700" letter-spacing="-6" fill="#f5f3ee">NANATATA<tspan fill="#dc5b37">.</tspan></text>
+<text x="43" y="204" font-size="24" fill="#f5f3ee">Build with curiosity.</text>
+<path d="M42 240H1038" stroke="#35383a"/>
+<text x="43" y="272" font-size="12" letter-spacing="1.7" fill="#a8aaa9">IMAGING / INTERACTION / SOFTWARE</text>
+<text x="1038" y="272" text-anchor="end" font-size="12" letter-spacing="1.7" fill="#a8aaa9">YZH2006517</text></g>
+<g clip-path="url(#crop)" fill="none" stroke-width="1.5" stroke="#f5f3ee">
+<ellipse cx="849" cy="150" rx="72" ry="88" opacity="0.18"/><ellipse cx="861" cy="150" rx="72" ry="88" opacity="0.22999999999999998"/><ellipse cx="873" cy="150" rx="72" ry="88" opacity="0.28"/><ellipse cx="885" cy="150" rx="72" ry="88" opacity="0.33"/><ellipse cx="897" cy="150" rx="72" ry="88" opacity="0.38"/><ellipse cx="909" cy="150" rx="72" ry="88" opacity="0.43"/><ellipse cx="921" cy="150" rx="72" ry="88" opacity="0.48000000000000004"/><ellipse cx="933" cy="150" rx="72" ry="88" opacity="0.53"/><ellipse cx="945" cy="150" rx="72" ry="88" opacity="0.5800000000000001"/><ellipse cx="957" cy="150" rx="72" ry="88" opacity="0.63"/><ellipse cx="969" cy="150" rx="72" ry="88" opacity="0.6799999999999999"/><ellipse cx="981" cy="150" rx="72" ry="88" opacity="0.73"/>
+</g><circle cx="986" cy="76" r="10" fill="#dc5b37"/>
+</svg>
