@@ -190,6 +190,12 @@ FONT = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789·- ", [
     "#####....#...#...#...#....#....#...", ".###.#...##...#.###.#...##...#.###.", ".###.#...##...#.####....#...#..##..",
     "." * 17 + "#" + "." * 17, "." * 15 + ".###." + "." * 15, "." * 35,
 ]))
+# 网址和箭头要用的几个符号
+FONT.update({
+    ".": "." * 32 + "#" + "..",
+    ">": "#...." ".#..." "..#.." "...#." "..#.." ".#..." "#....",
+    "<": "....#" "...#." "..#.." ".#..." "..#.." "...#." "....#",
+})
 
 def text_svg(txt, x, y, px, fill, anchor="middle", cls=""):
     """把一行大写字母画成像素矩形。px 是一个像素格的边长。"""
@@ -404,6 +410,84 @@ def altar_assets():
         tri.paste(p, (x, H - p.height), p)
         x += p.width + 20
     tri.save(ROOT / "assets" / "studio-altar.webp", quality=84, method=6)
+
+ENTRY_STYLE = """<style>
+.pulse{animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:.85}}
+.march{animation:march 1.6s linear infinite}
+@keyframes march{to{stroke-dashoffset:-24}}
+.spin{animation:spin 24s linear infinite;transform-box:fill-box;transform-origin:center}
+.spin.rev{animation-direction:reverse}
+@keyframes spin{to{transform:rotate(1turn)}}
+.blink{animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.nudgeL{animation:nudgeL .8s steps(2) infinite}
+.nudgeR{animation:nudgeR .8s steps(2) infinite}
+@keyframes nudgeL{50%{transform:translateX(8px)}}
+@keyframes nudgeR{50%{transform:translateX(-8px)}}
+.gild{animation:gild 3.2s linear infinite}
+@keyframes gild{from{transform:translateX(-420px)}to{transform:translateX(420px)}}
+.tw0,.tw1,.tw2,.tw3{animation:tw 4.8s ease-in-out infinite}
+.tw1{animation-delay:-1.2s}.tw2{animation-delay:-2.4s}.tw3{animation-delay:-3.6s}
+@keyframes tw{0%,100%{opacity:1}50%{opacity:.62}}
+.mote{animation:mote 5s steps(10) infinite}
+@keyframes mote{0%{opacity:0;transform:translateY(0)}20%{opacity:1}100%{opacity:0;transform:translateY(-40px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>"""
+
+def rays(cx, cy, r0, r1, n, color, cls):
+    d = []
+    for i in range(n):
+        a = i / n * 2 * math.pi
+        r = r1 if i % 2 else r1 - 10
+        d.append(f"M{cx + math.cos(a) * r0:.1f} {cy + math.sin(a) * r0:.1f}L{cx + math.cos(a) * r:.1f} {cy + math.sin(a) * r:.1f}")
+    return f'<path class="{cls}" stroke="{color}" stroke-width="2" d="{"".join(d)}"/>'
+
+def entry(theme):
+    """README 里通往个人网站的大门：两扇玫瑰窗夹着一块尖拱金牌，外面一圈跑动的金虚线。"""
+    p = PAL[theme]; W, H = 900, 300
+    s = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="Enter the website: yzh2006517.github.io">',
+         ENTRY_STYLE,
+         f'<defs><radialGradient id="glow"><stop offset="0" stop-color="{p["gold2"]}" stop-opacity=".9"/><stop offset="1" stop-color="{p["gold2"]}" stop-opacity="0"/></radialGradient>'
+         f'<linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{p["gold2"]}"/><stop offset=".55" stop-color="{p["gold"]}"/><stop offset="1" stop-color="{p["frame"]}"/></linearGradient>'
+         f'<linearGradient id="sheen" x1="0" y1="0" x2="1" y2="0"><stop offset=".4" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".8"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></linearGradient>'
+         f'<clipPath id="tc">{text_svg("ENTER", 450, 92, 8, "#000")}</clipPath></defs>',
+         # 呼吸的金光
+         f'<ellipse class="pulse" cx="450" cy="150" rx="440" ry="150" fill="url(#glow)"/>',
+         # 外面一圈：跑动的金虚线，四角十字
+         f'<rect class="march" x="14" y="14" width="{W - 28}" height="{H - 28}" rx="6" fill="none" stroke="{p["frame"]}" stroke-width="3" stroke-dasharray="14 10"/>',
+         f'<rect x="24" y="24" width="{W - 48}" height="{H - 48}" fill="none" stroke="{p["frame"]}" stroke-width="1" opacity=".7"/>']
+    for cx, cy in [(14, 14), (W - 14, 14), (14, H - 14), (W - 14, H - 14)]:
+        s.append(f'<g fill="{p["gold"]}"><rect x="{cx - 11}" y="{cy - 11}" width="22" height="22" fill="{p["panel"]}" stroke="{p["frame"]}" stroke-width="2"/>'
+                 f'<rect x="{cx - 2}" y="{cy - 8}" width="4" height="16"/><rect x="{cx - 8}" y="{cy - 2}" width="16" height="4"/></g>')
+    # 中间的尖拱金牌
+    s.append(f'<path d="M190 236V96Q190 46 450 40Q710 46 710 96V236z" fill="{p["panel"]}" stroke="{p["frame"]}" stroke-width="4"/>'
+             f'<path d="M202 226V100Q202 58 450 52Q698 58 698 100V226z" fill="none" stroke="{p["frame"]}" stroke-width="1"/>')
+    # 两侧玫瑰窗：外圈光芒和齿环反向转
+    for cx in (130, 770):
+        s.append(f'<g fill="none">{rays(cx, 150, 96, 122, 48, p["gold"], "spin")}</g>')
+        s.append(f'<circle class="spin rev" cx="{cx}" cy="150" r="91" fill="none" stroke="{p["gold"]}" stroke-width="8" stroke-dasharray="4 5"/>')
+        s.append(f'<circle cx="{cx}" cy="150" r="86" fill="{p["glass_lead"]}"/>')
+        s.append(rose_svg(cx, 150, 84, 64, p))
+    # 文字
+    s.append(text_svg("ENTER", 454, 96, 8, p["glass_lead"]))
+    s.append(text_svg("ENTER", 450, 92, 8, "url(#gold)"))
+    s.append('<g clip-path="url(#tc)"><rect class="gild" x="250" y="90" width="400" height="60" fill="url(#sheen)"/></g>')
+    s.append(text_svg("YZH2006517.GITHUB.IO", 450, 168, 3, p["ink"]))
+    s.append(f'<g class="blink">{text_svg("CLICK TO OPEN", 450, 202, 2, p["gold"])}</g>')
+    s.append(f'<g class="nudgeL">{text_svg(">>>", 262, 196, 3, p["red"])}</g>')
+    s.append(f'<g class="nudgeR">{text_svg("<<<", 638, 196, 3, p["red"])}</g>')
+    rnd = random.Random(11)
+    for k in range(18):
+        x, y = rnd.randint(40, 860), rnd.randint(40, 260)
+        s.append(f'<rect class="mote" style="animation-delay:-{rnd.random() * 5:.1f}s" x="{x}" y="{y}" width="3" height="3" fill="{p["gold2"]}"/>')
+    s.append("</svg>")
+    return "".join(s)
+
+if __name__ == "__main__" and "--entry" in __import__("sys").argv:
+    for t in ("light", "dark"):
+        (ROOT / "assets" / f"entry-{t}.svg").write_text(entry(t), encoding="utf-8")
+    raise SystemExit
 
 if __name__ == "__main__":
     ornaments_css()
