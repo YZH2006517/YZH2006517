@@ -13,7 +13,7 @@
 
 <h3 align="center"><a href="https://yzh2006517.github.io/">✦ 进入个人网站 · Enter the website ✦</a></h3>
 
-<p align="center"><sub>一扇会发光的玫瑰窗、一座能穿行的 3D 城市，作品都在里面</sub></p>
+
 
 ---
 
