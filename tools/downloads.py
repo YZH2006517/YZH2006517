@@ -4,7 +4,7 @@
 
 由 .github/workflows/downloads.yml 每天跑一次；数字没变就不会产生提交。
 只算 Release 里上传的附件（exe / apk 等），GitHub 自动生成的源码包和 git clone 不计。
-画图用的玫瑰窗、像素字和配色都来自同目录的 sanctum.py，和头图、入口图是一套。
+像素字和配色来自同目录的 sanctum.py，和入口图是一套；版式以中轴左右对称，不再放玫瑰窗。
 """
 import json
 import math
@@ -12,7 +12,7 @@ import os
 import random
 import urllib.request
 
-from sanctum import FONT, PAL, ROOT, rose_svg, text_svg
+from sanctum import FONT, PAL, ROOT, text_svg
 
 OWNER = "YZH2006517"
 # 计数牌上的短名字；没列在这里的仓库用仓库名本身
@@ -72,30 +72,55 @@ STYLE = """<style>
 </style>"""
 
 
+def lancet(cx, y0, y1, w, p):
+    """一道尖拱窗棂：外框是尖拱，中间竖一列小十字。左右各放一道，版面对称。"""
+    h = w * 0.9
+    d = (f"M{cx - w / 2} {y1}V{y0 + h}Q{cx - w / 2} {y0 + h * .25} {cx} {y0}"
+         f"Q{cx + w / 2} {y0 + h * .25} {cx + w / 2} {y0 + h}V{y1}z")
+    g = [f'<path d="{d}" fill="none" stroke="{p["frame"]}" stroke-width="2"/>',
+         f'<path d="{d}" fill="{p["gold2"]}" opacity=".08"/>']
+    for y in range(int(y0 + h + 14), int(y1 - 10), 26):
+        g.append(f'<g fill="{p["gold"]}"><rect x="{cx - 1.5}" y="{y - 6}" width="3" height="12"/>'
+                 f'<rect x="{cx - 5}" y="{y - 2.5}" width="10" height="3"/></g>')
+    return "".join(g)
+
+
+def vine(cx, y, half, p):
+    """横向花纹分隔：两侧细线、菱点，正中一枚十字。"""
+    g = [f'<rect x="{cx - half}" y="{y - 1}" width="{half - 26}" height="2" fill="{p["frame"]}"/>',
+         f'<rect x="{cx + 26}" y="{y - 1}" width="{half - 26}" height="2" fill="{p["frame"]}"/>']
+    for dx in (-half - 8, -18, 18, half + 8):
+        g.append(f'<rect x="{cx + dx - 3}" y="{y - 3}" width="6" height="6" fill="{p["gold"]}" transform="rotate(45 {cx + dx} {y})"/>')
+    g.append(f'<rect x="{cx - 2}" y="{y - 9}" width="4" height="18" fill="{p["gold"]}"/>'
+             f'<rect x="{cx - 7}" y="{y - 4}" width="14" height="4" fill="{p["gold"]}"/>')
+    return "".join(g)
+
+
 def plaque(theme, rows):
+    """以中轴对称的计数牌：上面烫金总数，下面每个项目一行，名字在轴左、数字在轴右，金条从轴心向两边长。"""
     p = PAL[theme]
-    W = 900
-    H = max(250, 70 + len(rows) * 36 + 30)
+    W, C = 900, 450
+    top = 206
+    H = top + len(rows) * 36 + 34
     total = sum(n for _, n in rows)
     big = f"{total:,}"
-    px = min(8, 248 // (len(big) * 6 - 1))
-    cy = H / 2
-    num_y = cy - 32
+    px = min(9, 420 // (len(big) * 6 - 1))
+    num_y = 62
+    peak = max(n for _, n in rows)
     s = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" '
-         f'aria-label="{total} downloads in total across {len(rows)} projects">', STYLE,
+         f'aria-label="{total} downloads in total across {len(rows)} projects">', STYLE.replace("transform-origin:left center", "transform-origin:center"),
          f'<defs><linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{p["gold2"]}"/>'
          f'<stop offset=".55" stop-color="{p["gold"]}"/><stop offset="1" stop-color="{p["frame"]}"/></linearGradient>'
          f'<linearGradient id="bar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="{p["frame"]}"/>'
-         f'<stop offset=".7" stop-color="{p["gold"]}"/><stop offset="1" stop-color="{p["gold2"]}"/></linearGradient>'
+         f'<stop offset=".5" stop-color="{p["gold2"]}"/><stop offset="1" stop-color="{p["frame"]}"/></linearGradient>'
          f'<linearGradient id="sh" x1="0" y1="0" x2="1" y2="0"><stop offset=".4" stop-color="#fff" stop-opacity="0"/>'
          f'<stop offset=".5" stop-color="#fff" stop-opacity=".8"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></linearGradient>'
          f'<radialGradient id="glow"><stop offset="0" stop-color="{p["gold2"]}" stop-opacity=".5"/>'
          f'<stop offset="1" stop-color="{p["gold2"]}" stop-opacity="0"/></radialGradient>'
-         f'<clipPath id="num">{text_svg(big, 300, num_y, px, "#000")}</clipPath></defs>',
-         # 牌面：底色、两道金框、四角十字
+         f'<clipPath id="num">{text_svg(big, C, num_y, px, "#000")}</clipPath></defs>',
          f'<rect x="6" y="6" width="{W - 12}" height="{H - 12}" fill="{p["panel"]}" stroke="{p["frame"]}" stroke-width="3"/>',
          f'<rect x="16" y="16" width="{W - 32}" height="{H - 32}" fill="none" stroke="{p["frame"]}" stroke-width="1" opacity=".7"/>']
-    for x in range(60, W - 50, 24):  # 上下两排小菱点
+    for x in range(60, W - 50, 24):
         for y in (11, H - 11):
             s.append(f'<rect x="{x - 2}" y="{y - 2}" width="4" height="4" fill="{p["frame"]}" transform="rotate(45 {x} {y})"/>')
     for kx, ky in [(6, 6), (W - 6, 6), (6, H - 6), (W - 6, H - 6)]:
@@ -103,39 +128,33 @@ def plaque(theme, rows):
                  f'stroke="{p["frame"]}" stroke-width="2"/><rect x="{kx - 2}" y="{ky - 7}" width="4" height="14"/>'
                  f'<rect x="{kx - 7}" y="{ky - 2}" width="14" height="4"/></g>')
 
-    # 左：玫瑰窗徽章 + 总数
-    s.append(f'<circle cx="300" cy="{cy}" r="150" fill="url(#glow)"/>')
-    rays = "".join(f"M{96 + math.cos(a) * 62:.1f} {cy + math.sin(a) * 62:.1f}"
-                   f"L{96 + math.cos(a) * (78 if i % 2 else 70):.1f} {cy + math.sin(a) * (78 if i % 2 else 70):.1f}"
-                   for i, a in enumerate([k / 36 * 6.2832 for k in range(36)]))
-    s.append(f'<path class="spin" fill="none" stroke="{p["gold"]}" stroke-width="2" d="{rays}"/>')
-    s.append(f'<circle cx="96" cy="{cy}" r="58" fill="{p["glass_lead"]}" stroke="{p["frame"]}" stroke-width="3"/>')
-    s.append(rose_svg(96, cy, 55, 48, p))
-    s.append(text_svg("TOTAL DOWNLOADS", 300, cy - 66, 2, p["gold"]))
-    s.append(text_svg(big, 304, num_y + 4, px, p["glass_lead"]))
-    s.append(text_svg(big, 300, num_y, px, "url(#gold)"))
-    s.append(f'<g clip-path="url(#num)"><rect class="sheen" x="200" y="{num_y}" width="200" height="{7 * px}" fill="url(#sh)"/></g>')
-    s.append(text_svg(f"ACROSS {len(rows)} PROJECTS", 300, num_y + 7 * px + 16, 2, p["ink"]))
-    s.append(text_svg("UPDATED DAILY", 300, num_y + 7 * px + 38, 2, p["mute"]))
+    # 左右两道尖拱窗棂，镜像对称
+    s.append(lancet(64, 34, H - 34, 46, p))
+    s.append(lancet(W - 64, 34, H - 34, 46, p))
 
-    # 中间一道金线，正中一枚菱形
-    s.append(f'<rect x="489" y="34" width="2" height="{H - 68}" fill="{p["frame"]}" opacity=".7"/>'
-             f'<rect x="484" y="{cy - 6}" width="12" height="12" fill="{p["gold"]}" transform="rotate(45 490 {cy})"/>')
+    # 上半：标题、烫金总数、说明
+    s.append(f'<ellipse cx="{C}" cy="{num_y + 30}" rx="300" ry="90" fill="url(#glow)"/>')
+    s.append(text_svg("TOTAL DOWNLOADS", C, 34, 2, p["gold"]))
+    s.append(text_svg(big, C + 4, num_y + 4, px, p["glass_lead"]))
+    s.append(text_svg(big, C, num_y, px, "url(#gold)"))
+    s.append(f'<g clip-path="url(#num)"><rect class="sheen" x="{C - 100}" y="{num_y}" width="200" height="{7 * px}" fill="url(#sh)"/></g>')
+    s.append(text_svg(f"ACROSS {len(rows)} PROJECTS · UPDATED DAILY", C, num_y + 7 * px + 16, 2, p["ink"]))
+    s.append(vine(C, top - 30, 250, p))
 
-    # 右：每个项目一行，名字、数字、一根金条
-    top = (H - len(rows) * 36) / 2 + 4
-    peak = max(n for _, n in rows)
+    # 下半：每行名字在轴左、数字在轴右，金条从轴心向两边对称长出
     for i, (name, n) in enumerate(rows):
         y = top + i * 36
-        s.append(text_svg(name, 520, y, 2, p["ink"], anchor="start"))
-        s.append(text_end(f"{n:,}", 864, y, 2, p["gold"]))
-        s.append(f'<rect x="520" y="{y + 19}" width="344" height="8" fill="{p["glass_lead"]}" opacity=".18"/>')
-        s.append(f'<rect class="grow" style="animation-delay:{.15 * i:.2f}s" x="520" y="{y + 19}" '
-                 f'width="{max(4, round(344 * n / peak))}" height="8" fill="url(#bar)"/>')
+        s.append(text_end(name, C - 14, y, 2, p["ink"]))
+        s.append(text_svg(f"{n:,}", C + 14, y, 2, p["gold"], anchor="start"))
+        s.append(f'<rect x="{C - 3}" y="{y + 2}" width="6" height="10" fill="{p["frame"]}" transform="rotate(45 {C} {y + 7})"/>')
+        w = max(6, round(560 * n / peak))
+        s.append(f'<rect x="{C - 280}" y="{y + 20}" width="560" height="6" fill="{p["glass_lead"]}" opacity=".14"/>')
+        s.append(f'<rect class="grow" style="animation-delay:{.15 * i:.2f}s" x="{C - w / 2:.1f}" y="{y + 20}" '
+                 f'width="{w}" height="6" fill="url(#bar)"/>')
 
     rnd = random.Random(5)
     for _ in range(14):
-        s.append(f'<rect class="mote" style="animation-delay:-{rnd.random() * 5:.1f}s" x="{rnd.randint(30, W - 30)}" '
+        s.append(f'<rect class="mote" style="animation-delay:-{rnd.random() * 5:.1f}s" x="{rnd.randint(110, W - 110)}" '
                  f'y="{rnd.randint(30, H - 30)}" width="3" height="3" fill="{p["gold2"]}"/>')
     s.append("</svg>")
     return "".join(s)
