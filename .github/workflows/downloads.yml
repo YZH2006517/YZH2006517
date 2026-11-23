@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install pillow   # sanctum.py 顶部引用了它
+      - run: pip install fonttools brotli   # 读嵌入字体的字宽（woff2 需要 brotli）
       - run: python tools/downloads.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
