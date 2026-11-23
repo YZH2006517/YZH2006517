@@ -1,0 +1,30 @@
+# 每天统计一次所有公开仓库 Release 附件的累计下载次数，重画 README 里的计数牌。
+# 数字没变就不提交；也可以在 Actions 页面手动点 Run workflow 立刻更新。
+name: 下载计数
+
+on:
+  schedule:
+    - cron: "17 2 * * *"   # 每天 UTC 02:17（北京时间 10:17）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  count:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pillow   # sanctum.py 顶部引用了它
+      - run: python tools/downloads.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 数字变了才提交
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/downloads-*.svg
+          git diff --cached --quiet || { git commit -m "更新下载计数"; git push; }

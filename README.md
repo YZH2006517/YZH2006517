@@ -13,6 +13,13 @@
 
 <h3 align="center"><a href="https://yzh2006517.github.io/">✦ 进入个人网站 · Enter the website ✦</a></h3>
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/downloads-dark.svg">
+    <img alt="全部项目累计下载次数（每天更新）" src="assets/downloads-light.svg" width="100%">
+  </picture>
+</p>
+
 
 
 ---
